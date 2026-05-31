@@ -7,7 +7,7 @@
         exit();
     }
 
-    include("../includes/conexao.php");
+    include("../../includes/conexao.php");
 
     $valNome = "";
     $valEmail = "";
@@ -32,7 +32,7 @@
 
 <?php include("../../includes/cabecalho.php"); ?>
 
-<?php include("../includes/menu_admin.php"); ?>
+<?php include("../../includes/menu_admin.php"); ?>
 
 <!DOCTYPE html>
 
@@ -123,7 +123,7 @@
             <br>
         </div>
 
-        <?php include("../includes/rodape.php"); ?>
+        <?php include("../../includes/rodape.php"); ?>
 
     </body>
 </html>

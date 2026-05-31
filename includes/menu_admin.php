@@ -92,19 +92,19 @@
         <div class="drop-down__menu-box">
             <ul class="drop-down__menu">
                 <li class="drop-down__item">
-                    <a href="/tcc/TCC_TESTE/admin/dashboard.php">🏠︎ Dashboard</a>
+                    <a href="../admin/dashboard.php">🏠︎ Dashboard</a>
                 </li>
                 <li class="drop-down__item">
-                    <a href="/tcc/TCC_TESTE/admin/usuarios.php">📏 Gerenciar Usuários</a>
+                    <a href="../admin/usuarios.php">📏 Gerenciar Usuários</a>
                 </li>
                 <li class="drop-down__item">
-                    <a href="/tcc/TCC_TESTE/admin/exercicios.php">💪 Gerenciar Exercícios</a>
+                    <a href="../admin/exercicios.php">💪 Gerenciar Exercícios</a>
                 </li>
                 <li class="drop-down__item">
-                    <a href="/tcc/TCC_TESTE/admin/notificacoes.php">🔔 Gerenciar Notificações</a>
+                    <a href="../admin/notificacoes.php">🔔 Gerenciar Notificações</a>
                 </li>
                 <li class="drop-down__item">
-                    <a href="/tcc/TCC_TESTE/logout.php">↩ Sair</a>
+                    <a href="../logout.php">↩ Sair</a>
                 </li>
 
             </ul>

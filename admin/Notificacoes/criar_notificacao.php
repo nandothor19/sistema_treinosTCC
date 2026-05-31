@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-include("../includes/conexao.php");
+include("../../includes/conexao.php");
 
 $valTitulo = "";
 $valMensagem = "";
@@ -34,7 +34,7 @@ if (isset($_GET["erro"])) {
 
 <?php include("../../includes/cabecalho.php"); ?>
 
-<?php include("../includes/menu_admin.php"); ?>
+<?php include("../../includes/menu_admin.php"); ?>
 
 <div class="w3-container w3-round-xxlarge w3-card-4"
      style="margin: 70px auto 0 auto; padding: 12px 24px 24px 24px; max-width: 500px; display: block;">
@@ -87,4 +87,4 @@ if (isset($_GET["erro"])) {
     <br>
 </div>
 
-<?php include("../includes/rodape.php"); ?>
+<?php include("../../includes/rodape.php"); ?>
