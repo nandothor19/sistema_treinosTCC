@@ -98,7 +98,7 @@
 
     include("../../includes/cabecalho.php");
 
-    include("../includes/menu_admin.php");
+    include("../../includes/menu_admin.php");
 ?>
 
 <!DOCTYPE html>

@@ -123,9 +123,7 @@ $result = $conn->query($sql);
                     <a href="Usuario/dados_usuario.php?id=<?php echo $user['idUsuario']; ?>"
                     class="w3-button w3-blue"
                     style="border-radius: 12px;">
-
                         Editar
-
                     </a>
 
                 </td>
@@ -134,9 +132,7 @@ $result = $conn->query($sql);
                     <button onclick="document.getElementById('popup').style.display='block'"
                     class="w3-button w3-red"
                     style="border-radius: 12px;">
-
                         Excluir
-
                     </button>
 
                     <div id="popup" class="w3-modal" >
@@ -157,17 +153,13 @@ $result = $conn->query($sql);
                                 <a href="Usuario/excluir_usuario.php?id=<?php echo $user['idUsuario']; ?>"
                                 class="w3-button w3-green"
                                 style="border-radius: 12px;">
-
                                     Sim
-
                                 </a>
 
                                 <a href="usuarios.php"
                                 class="w3-button w3-red"
                                 style="border-radius: 12px;">
-
                                     Não
-
                                 </a>
                             </div>
                         
@@ -188,4 +180,3 @@ $result = $conn->query($sql);
     </body>
 
 </html>
-

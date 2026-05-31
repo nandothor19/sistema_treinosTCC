@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 $nome = $_SESSION['admin_nome'];
 
-include("../includes/conexao.php");
+include("../../includes/conexao.php");
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -22,6 +22,6 @@ WHERE idExercicio = ?
 $stmt->execute([$id]);
 
 
-header("Location: ../exercicio.php");
+header("Location: ../exercicios.php");
 
 ?>

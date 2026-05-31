@@ -11,7 +11,7 @@
     $nome = $_SESSION['admin_nome'];
 
 
-    include("../includes/conexao.php");
+    include("../../includes/conexao.php");
 
     $id = $_GET['id'];
 
