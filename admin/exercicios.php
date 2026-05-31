@@ -41,7 +41,7 @@ $result = $conn->query($sql);
 
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h2>Gerenciar Exercícios</h2>
-        <a href="Exercicios/editar_exercicio.php"
+        <a href="Exercicios/criar_exercicio.php"
         class="w3-button w3-green"
         style="border-radius: 12px;">
             Novo Exercício

@@ -33,8 +33,15 @@ if (isset($_GET["erro"])) {
 ?>
 
 <?php include("../../includes/cabecalho.php"); ?>
-
 <?php include("../../includes/menu_admin.php"); ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Notificação</title>
+        <link rel="stylesheet"
+        href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
 
 <div class="w3-container w3-round-xxlarge w3-card-4"
      style="margin: 70px auto 0 auto; padding: 12px 24px 24px 24px; max-width: 500px; display: block;">
@@ -86,5 +93,7 @@ if (isset($_GET["erro"])) {
     </div>
     <br>
 </div>
+</body>
+</html>
 
 <?php include("../../includes/rodape.php"); ?>
