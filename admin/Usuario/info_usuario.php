@@ -17,9 +17,9 @@
     }
 ?>
 
-<?php include("../includes/cabecalho.php"); ?>
+<?php include("../../includes/cabecalho.php"); ?>
 
-<?php include("../includes/menu.php"); ?>     
+<?php include("../../includes/menu_admin2.php"); ?>     
 
 <!DOCTYPE html>
 
@@ -152,6 +152,6 @@
     });
     </script>
 
-    <?php include("../includes/rodape.php"); ?>    
+    <?php include("../../includes/rodape.php"); ?>    
 </body>
 </html>

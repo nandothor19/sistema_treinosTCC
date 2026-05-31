@@ -33,7 +33,7 @@ if (isset($_GET["erro"])) {
 ?>
 
 <?php include("../../includes/cabecalho.php"); ?>
-<?php include("../../includes/menu_admin.php"); ?>
+<?php include("../../includes/menu_admin2.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
