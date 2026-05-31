@@ -3,35 +3,40 @@ session_start();
 include("includes/conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_id = $_SESSION['usuario_id'];
+    $usuario_id = $_SESSION['usuario_id'] ?? null;
 
-    $nome = trim($_POST['nome']);
-    $email = trim($_POST['email']);
-    $sexo = $_POST['sexo'];
-    $idade = (int)$_POST['idade'];
-    $nivelExperiencia = $_POST['nivelExperiencia'];
-    $objetivo = $_POST['objetivo'];
-    $data_inicio = $_POST['data_inicio'];
-    $data_fim = $_POST['data_fim'];
+    if (!$usuario_id) {
+        header("Location: login.php");
+        exit();
+    }
 
-    $peso = (float)$_POST['peso'];
-    $altura = (float)$_POST['altura'];
-    $cintura = (float)$_POST['cintura'];
-    $peito = (float)$_POST['peito'];
-    $braco = (float)$_POST['braco'];
-    $perna = (float)$_POST['perna'];
+    $nome              = trim($_POST['nome'] ?? '');
+    $email             = trim($_POST['email'] ?? '');
+    $sexo              = $_POST['sexo'] ?? '';
+    $idade             = (int)($_POST['idade'] ?? 0);
+    $nivelExperiencia  = $_POST['nivelExperiencia'] ?? '';
+    $objetivo          = $_POST['objetivo'] ?? '';
+    $data_inicio       = $_POST['data_inicio'] ?? null;
+    $data_fim          = $_POST['data_fim'] ?? null;
+
+    $peso     = (float)($_POST['peso'] ?? 0);
+    $altura   = (float)($_POST['altura'] ?? 0);
+    $cintura  = (float)($_POST['cintura'] ?? 0);
+    $peito    = (float)($_POST['peito'] ?? 0);
+    $braco    = (float)($_POST['braco'] ?? 0);
+    $perna    = (float)($_POST['perna'] ?? 0);
 
     try {
-        // Atualiza tabela usuarios
+        // Atualiza dados do usuário
         $stmt = $conn->prepare("
-            UPDATE usuarios SET 
-            nome = ?, email = ?, idade = ?, sexo = ?, 
-            nivelExperiencia = ?, objetivo = ?
+            UPDATE usuarios 
+            SET nome = ?, email = ?, idade = ?, sexo = ?, 
+                nivelExperiencia = ?, objetivo = ?
             WHERE idUsuario = ?
         ");
         $stmt->execute([$nome, $email, $idade, $sexo, $nivelExperiencia, $objetivo, $usuario_id]);
 
-        // Insere ou atualiza medidas corporais
+        // Insere medidas corporais (sempre nova entrada para histórico)
         $stmt2 = $conn->prepare("
             INSERT INTO medidas_corporais 
             (idUsuario, peso, altura, cintura, peito, braco, perna, dataRegistro)
@@ -39,15 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ");
         $stmt2->execute([$usuario_id, $peso, $altura, $cintura, $peito, $braco, $perna]);
 
-        // Atualiza sessão
+        // Atualiza nome na sessão
         $_SESSION['usuario_nome'] = $nome;
 
-        header("Location: dashboard.php?sucesso=1");
+        // Redireciona com sucesso
+        header("Location: dashboard.php?sucesso=medidas");
         exit();
 
     } catch (Exception $e) {
+        error_log("Erro em info_usuario_action: " . $e->getMessage());
         header("Location: info_usuario.php?erro=1");
         exit();
     }
+} else {
+    header("Location: info_usuario.php");
+    exit();
 }
 ?>

@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-include("../includes/conexao.php");
+include("../../includes/conexao.php");
 
 $titulo = trim($_POST["titulo"] ?? "");
 $mensagem = trim($_POST["mensagem"] ?? "");
