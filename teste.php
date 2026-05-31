@@ -3,18 +3,20 @@ include("includes/cabecalho.php");
 include("includes/menu.php");
 include("includes/conexao.php");
 
-session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-$userId = $_SESSION['id_Usuario'];
+$userId = $_SESSION['usuario_id'];
 
 $sql = "
 SELECT * FROM notificacoes
-WHERE id_Usuario = ?
-ORDER BY dataEnvio DESC
-";
+WHERE idUsuario = ?
+ORDER BY dataEnvio DESC";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id_Usuario);
+$stmt->bind_param("i", $userId);
 $stmt->execute();
 
 $result = $stmt->get_result();
