@@ -9,6 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 include("../../includes/conexao.php");
 
+
 $mensagem = "";
 
 if ($_POST) {
@@ -45,6 +46,9 @@ if ($_POST) {
     }
 }
 ?>
+<?php include("../../includes/cabecalho.php"); ?>
+
+<?php include("../../includes/menu_admin2.php"); ?>
 
 <!DOCTYPE html>
 <html>
@@ -131,6 +135,6 @@ if ($_POST) {
     </div>
 
 </div>
-
+        <?php include("../../includes/rodape.php"); ?>
 </body>
 </html>

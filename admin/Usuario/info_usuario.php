@@ -137,7 +137,7 @@
         </div>
 
         <div class="w3-container w3-section w3-center">
-            <a href = "/TCC/TCC_TESTE/admin/dashboard.php" style="color: #e67b39; font-weight: bold;">Início</a>
+            <a href = "../../admin/dashboard.php" style="color: #e67b39; font-weight: bold;">Início</a>
         </div>
     </div>
 
