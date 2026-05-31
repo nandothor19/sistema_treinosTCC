@@ -28,7 +28,7 @@ $result = $conn->query($sql);
 
 <?php include("../includes/cabecalho.php"); ?>
 
-<?php include("includes/menu_admin.php"); ?>
+<?php include("../includes/menu_admin.php"); ?>
 
 <!DOCTYPE html>
 
