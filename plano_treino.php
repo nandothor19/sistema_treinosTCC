@@ -15,6 +15,8 @@ $stmt->execute([$usuario_id]);
 
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$sexo = strtolower(trim($usuario["sexo"]));
+$objetivo = strtolower(trim($usuario["objetivo"]));
 $sexo = $usuario["sexo"];
 $objetivo = $usuario["objetivo"];
 $nivel = $usuario["nivelExperiencia"];
