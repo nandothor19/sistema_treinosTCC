@@ -17,7 +17,6 @@ $stmt = $conn->prepare("
     SELECT *
     FROM usuarios 
     WHERE idUsuario = ?
-    ORDER BY dataRegistro DESC LIMIT 1
 ");
 $stmt->execute([$usuario_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
