@@ -295,8 +295,10 @@ $plano = $gerador->gerarPlano($sexo, $objetivo);
          ">
 
         <label>
-            <input type="checkbox"
-                   onchange="marcarFeito(this)">
+           <input type="checkbox"
+       data-dia="<?= $dia ?>"
+       data-exercicio="<?= $ex['nome'] ?>"
+       onchange="marcarFeito(this)">
             <strong>
                 <?= $ex['nome'] ?>
             </strong>
@@ -364,6 +366,16 @@ function mostrarTreino() {
     }
 }
 function marcarFeito(checkbox) {
+
+    fetch('salvar_progresso.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body:
+            'dia=' + checkbox.dataset.dia +
+            '&exercicio=' + checkbox.dataset.exercicio
+    });
 
     const card = checkbox.closest('.exercicio');
 

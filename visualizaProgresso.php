@@ -4,116 +4,288 @@ session_start();
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
-}?>
-<?php include("includes/cabecalho.php"); ?>
-<?php include("includes/menu.php"); ?>
+}
+
+include("includes/conexao.php");
+include("includes/cabecalho.php");
+include("includes/menu.php");
+
+$usuario_id = $_SESSION['usuario_id'];
+
+$stmt = $conn->prepare("
+    SELECT COUNT(*) as total
+    FROM progresso_treino
+    WHERE idUsuario = ?
+");
+$stmt->execute([$usuario_id]);
+$totalConcluidos = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+$totalPlanejado = 28;
+
+$porcentagem = 0;
+
+if ($totalPlanejado > 0) {
+    $porcentagem = min(
+        round(($totalConcluidos / $totalPlanejado) * 100),
+        100
+    );
+}
+
+$stmt = $conn->prepare("
+    SELECT dia, exercicio, data_conclusao
+    FROM progresso_treino
+    WHERE idUsuario = ?
+    ORDER BY data_conclusao DESC
+    LIMIT 10
+");
+$stmt->execute([$usuario_id]);
+
+$historico = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$diasSemana = [
+    'segunda' => 0,
+    'terca' => 0,
+    'quarta' => 0,
+    'quinta' => 0,
+    'sexta' => 0
+];
+
+$stmt = $conn->prepare("
+    SELECT dia, COUNT(*) as total
+    FROM progresso_treino
+    WHERE idUsuario = ?
+    GROUP BY dia
+");
+$stmt->execute([$usuario_id]);
+
+while($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+    if(isset($diasSemana[$linha['dia']])) {
+        $diasSemana[$linha['dia']] = $linha['total'];
+    }
+}
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<section class="w3-container" style="margin-top: 30px;">
+<section class="w3-container" style="margin-top:30px;">
+
     <div class="w3-center">
-        <h2 style="color: #e67b39;"><b>Meu Progresso</b></h2>
-        <p>Acompanhe sua consistência e evolução no plano de <b>Hipertrofia</b>.</p>
+        <h2 style="color:#e67b39;">
+            <b>Meu Progresso</b>
+        </h2>
+
+        <p>
+            Acompanhe sua evolução no plano de treino.
+        </p>
     </div>
 
     <hr>
 
-    <div class="w3-row-padding" style="margin-top: 30px;">
-        
+    <div class="w3-row-padding" style="margin-top:30px;">
+
         <div class="w3-col l12 m12 s12 w3-margin-bottom">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px;">
-                <h3 style="color: #e67b39;"><b>Conclusão do Plano Mensal</b></h3>
-                <p>Meta: <b>01/04/2026 a 30/04/2026</b></p>
-                
-                <div class="w3-light-grey w3-round-xlarge" style="height:24px">
-                    <div class="w3-container w3-round-xlarge" style="width:65%; height:24px; background-color: #e67b39; text-align: center; color: white;">
-                        65%
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px;">
+
+                <h3 style="color:#e67b39;">
+                    <b>Conclusão do Plano</b>
+                </h3>
+
+                <div class="w3-light-grey w3-round-xlarge"
+                     style="height:24px;">
+
+                    <div class="w3-container w3-round-xlarge"
+                         style="
+                            width:<?= $porcentagem ?>%;
+                            height:24px;
+                            background-color:#e67b39;
+                            color:white;
+                            text-align:center;
+                         ">
+
+                        <?= $porcentagem ?>%
+
                     </div>
+
                 </div>
-                <p class="w3-small w3-text-grey">Você completou <b>18</b> dos <b>28</b> treinos planejados.</p>
+
+                <p>
+                    Você concluiu
+                    <b><?= $totalConcluidos ?></b>
+                    exercícios.
+                </p>
+
             </div>
+
         </div>
 
-        <div class="w3-col l12 m12 s12 w3-margin-bottom">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px;">
-                <h3 style="color: #e67b39;"><b>Volume de Séries por Dia</b></h3>
-                <div style="position: relative; height:300px; width:100%">
-                    <canvas id="graficoEvolucao"></canvas>
-                </div>
+        <div class="w3-col l4 m12 s12">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge w3-center"
+                 style="
+                    padding:20px;
+                    border-top:5px solid #e67b39;
+                 ">
+
+                <h4 class="w3-text-grey">
+                    Exercícios Concluídos
+                </h4>
+
+                <h2 style="color:#e67b39;">
+                    <b><?= $totalConcluidos ?></b>
+                </h2>
+
             </div>
+
         </div>
 
-        <div class="w3-col l4 m12 s12 w3-margin-bottom">
-            <div class="w3-container w3-round-xxlarge w3-card-4 w3-center" style="padding: 20px; border-top: 5px solid #e67b39;">
-                <h4 class="w3-text-grey">Frequência</h4>
-                <h2 style="color: #e67b39;"><b>92%</b></h2>
-                <p>Nos últimos <b>30</b> dias</p>
+        <div class="w3-col l4 m12 s12">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge w3-center"
+                 style="
+                    padding:20px;
+                    border-top:5px solid #e67b39;
+                 ">
+
+                <h4 class="w3-text-grey">
+                    Aproveitamento
+                </h4>
+
+                <h2 style="color:#e67b39;">
+                    <b><?= $porcentagem ?>%</b>
+                </h2>
+
             </div>
+
         </div>
 
-        <div class="w3-col l4 m12 s12 w3-margin-bottom">
-            <div class="w3-container w3-round-xxlarge w3-card-4 w3-center" style="padding: 20px; border-top: 5px solid #e67b39;">
-                <h4 class="w3-text-grey">Exercícios</h4>
-                <h2 style="color: #e67b39;"><b>145</b></h2>
-                <p>Séries executadas este mês</p>
+        <div class="w3-col l4 m12 s12">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge w3-center"
+                 style="
+                    padding:20px;
+                    border-top:5px solid #e67b39;
+                 ">
+
+                <h4 class="w3-text-grey">
+                    Meta
+                </h4>
+
+                <h2 style="color:#e67b39;">
+                    <b>28</b>
+                </h2>
+
+                <p>Exercícios planejados</p>
+
             </div>
+
         </div>
 
-        <div class="w3-col l4 m12 s12 w3-margin-bottom">
-            <div class="w3-container w3-round-xxlarge w3-card-4 w3-center" style="padding: 20px; border-top: 5px solid #e67b39;">
-                <h4 class="w3-text-grey">Peso Médio</h4>
-                <h2 style="color: #e67b39;"><b>+2.5kg</b></h2>
-                <p>Evolução de carga total</p>
+        <div class="w3-col l12 m12 s12 w3-margin-top">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px;">
+
+                <h3 style="color:#e67b39;">
+                    <b>Treinos por Dia</b>
+                </h3>
+
+                <canvas id="graficoTreino"></canvas>
+
             </div>
+
         </div>
 
-        <div class="w3-col l12 m12 s12">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px; margin-bottom: 20px;">
-                <h3 style="color: #e67b39;"><b>Checklist da Semana</b></h3>
+        <div class="w3-col l12 m12 s12 w3-margin-top">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px;">
+
+                <h3 style="color:#e67b39;">
+                    <b>Últimos Exercícios Realizados</b>
+                </h3>
+
                 <ul class="w3-ul">
-                    <li class="w3-display-container">Segunda-feira: Supino, Rosca e Agachamento 
-                        <span class="w3-tag w3-green w3-round w3-display-right" style="margin-right:10px;">Feito ✅</span>
-                    </li>
-                    <li class="w3-display-container">Terça-feira: Puxada Frontal 
-                        <span class="w3-tag w3-green w3-round w3-display-right" style="margin-right:10px;">Feito ✅</span>
-                    </li>
-                    <li class="w3-display-container">Quarta-feira: Leg Press 
-                        <span class="w3-tag w3-orange w3-round w3-display-right" style="margin-right:10px; color: white;">Pendente ⏳</span>
-                    </li>
-                    <li class="w3-display-container w3-text-grey">Quinta-feira: Desenvolvimento 
-                        <span class="w3-display-right" style="margin-right:10px;">Aguardando</span>
-                    </li>
+
+                    <?php foreach($historico as $item): ?>
+
+                        <li>
+
+                            <b><?= ucfirst($item['dia']) ?></b>
+                            -
+                            <?= $item['exercicio'] ?>
+
+                            <span
+                                class="w3-tag w3-green w3-round w3-right">
+                                Feito ✅
+                            </span>
+
+                        </li>
+
+                    <?php endforeach; ?>
+
                 </ul>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
 
 <script>
-const ctx = document.getElementById('graficoEvolucao').getContext('2d');
+
+const ctx =
+document.getElementById('graficoTreino').getContext('2d');
+
 new Chart(ctx, {
-    type: 'bar', 
+
+    type: 'bar',
+
     data: {
-        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+
+        labels: [
+            'Segunda',
+            'Terça',
+            'Quarta',
+            'Quinta',
+            'Sexta'
+        ],
+
         datasets: [{
-            label: 'Séries Planejadas',
-            // Dados extraídos do seu plano: Segunda(11), Terça(4), Quarta(4), Quinta(3), Sexta(4), Sábado(1), Domingo(0)
-            data: [11, 4, 4, 3, 4, 1, 0],
-            backgroundColor: 'rgba(230, 123, 57, 0.7)',
-            borderColor: '#e67b39',
-            borderWidth: 1,
-            borderRadius: 5
+
+            label: 'Exercícios concluídos',
+
+            data: [
+                <?= $diasSemana['segunda'] ?>,
+                <?= $diasSemana['terca'] ?>,
+                <?= $diasSemana['quarta'] ?>,
+                <?= $diasSemana['quinta'] ?>,
+                <?= $diasSemana['sexta'] ?>
+            ],
+
+            backgroundColor: '#e67b39'
         }]
     },
+
     options: {
+
         responsive: true,
-        maintainAspectRatio: false,
+
         scales: {
-            y: { beginAtZero: true }
+
+            y: {
+                beginAtZero: true
+            }
         }
     }
 });
+
 </script>
 
 <hr>
+
 <?php include("includes/rodape.php"); ?>
