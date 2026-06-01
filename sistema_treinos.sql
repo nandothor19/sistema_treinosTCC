@@ -74,22 +74,14 @@ COLLATE=utf8mb4_general_ci;
 -- TABELA PROGRESSO
 -- =========================
 
-CREATE TABLE IF NOT EXISTS `progresso` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `usuario_id` INT NOT NULL,
-    `peso` DECIMAL(5,2),
-    `altura` DECIMAL(3,2),
-    `data_registro` DATE,
-
-    CONSTRAINT `fk_progresso_usuario`
-        FOREIGN KEY (`usuario_id`)
-        REFERENCES `usuarios` (`idUsuario`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-
-) ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_general_ci;
+CREATE TABLE progresso_treino (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT NOT NULL,
+    dia VARCHAR(20),
+    exercicio VARCHAR(100),
+    data_conclusao DATE,
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario)
+);
 
 -- =========================
 -- TABELA PLANO TREINO
