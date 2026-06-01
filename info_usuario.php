@@ -14,11 +14,10 @@ include("includes/conexao.php");
 
 // Buscar dados existentes (caso já tenha preenchido antes)
 $stmt = $conn->prepare("
-    SELECT u.*, m.* 
-    FROM usuarios u 
-    LEFT JOIN medidas_corporais m ON u.idUsuario = m.idUsuario 
-    WHERE u.idUsuario = ?
-    ORDER BY m.dataRegistro DESC LIMIT 1
+    SELECT *
+    FROM usuarios 
+    WHERE idUsuario = ?
+    ORDER BY dataRegistro DESC LIMIT 1
 ");
 $stmt->execute([$usuario_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);

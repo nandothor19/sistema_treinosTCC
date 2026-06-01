@@ -26,29 +26,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $braco    = (float)($_POST['braco'] ?? 0);
     $perna    = (float)($_POST['perna'] ?? 0);
 
+   echo "O ID do usuário é: " . $_SESSION['usuario_id'];
     try {
         // Atualiza dados do usuário
         $stmt = $conn->prepare("
             UPDATE usuarios 
             SET nome = ?, email = ?, idade = ?, sexo = ?, 
-                nivelExperiencia = ?, objetivo = ?
-            WHERE idUsuario = ?
+            nivelExperiencia = ?, objetivo = ?, peso ?, altura = ?, cintura = ?,
+             peito = ?, braco = ?, perna = ?, dataRegistro = ?
+             WHERE idUsuario = ?
         ");
-        $stmt->execute([$nome, $email, $idade, $sexo, $nivelExperiencia, $objetivo, $usuario_id]);
-
-        // Insere medidas corporais (sempre nova entrada para histórico)
-        $stmt2 = $conn->prepare("
-            INSERT INTO medidas_corporais 
-            (idUsuario, peso, altura, cintura, peito, braco, perna, dataRegistro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_DATE)
-        ");
-        $stmt2->execute([$usuario_id, $peso, $altura, $cintura, $peito, $braco, $perna]);
+        $stmt->execute([$nome, $email, $idade, $sexo, $nivelExperiencia, $objetivo, 
+        $peso, $altura, $cintura, $peito, $braco, $perna, $dataRegistro, $usuario_id] );
 
         // Atualiza nome na sessão
         $_SESSION['usuario_nome'] = $nome;
 
         // Redireciona com sucesso
-        header("Location: dashboard.php?sucesso=medidas");
+        header("Location: dashboard.php");
         exit();
 
     } catch (Exception $e) {

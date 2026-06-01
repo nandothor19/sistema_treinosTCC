@@ -41,9 +41,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nivelExperiencia` VARCHAR(30) DEFAULT NULL,
   `objetivo` VARCHAR(50) DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `cintura` DECIMAL(5,2) NOT NULL,
+  `peito` DECIMAL(5,2) NOT NULL,
+  `braco` DECIMAL(5,2) NOT NULL,
+  `perna` DECIMAL(5,2) NOT NULL,
+  `dataRegistro` DATE NOT NULL,
 
   PRIMARY KEY (`idUsuario`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `fk_medidas_usuario_idx` (`idUsuario`)
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
@@ -150,34 +156,6 @@ CREATE TABLE IF NOT EXISTS `historico_treino` (
     REFERENCES `plano_treino` (`idPlano`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-) ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_general_ci;
-
--- =========================
--- TABELA MEDIDAS CORPORAIS
--- =========================
-
-CREATE TABLE IF NOT EXISTS `medidas_corporais` (
-  `idMedida` INT NOT NULL AUTO_INCREMENT,
-  `idUsuario` INT NOT NULL,
-  `peso` DECIMAL(5,2) NOT NULL,
-  `cintura` DECIMAL(5,2) NOT NULL,
-  `peito` DECIMAL(5,2) NOT NULL,
-  `braco` DECIMAL(5,2) NOT NULL,
-  `perna` DECIMAL(5,2) NOT NULL,
-  `dataRegistro` DATE NOT NULL,
-
-  PRIMARY KEY (`idMedida`),
-
-  KEY `fk_medidas_usuario_idx` (`idUsuario`),
-
-  CONSTRAINT `fk_medidas_usuario`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `usuarios` (`idUsuario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
