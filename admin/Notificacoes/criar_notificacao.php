@@ -61,17 +61,17 @@ if (isset($_GET["erro"])) {
             <label style="font-weight: bold;">Título</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
                    name="titulo" placeholder="Insira o título da Notificação:" required
-                   value="<?php echo $valTitulo; ?>">
+                   value="">
 
             <label style="font-weight: bold;">Mensagem</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="<textarea>"
                    name="mensagem" placeholder="Insira a mensagem presenta na notificação:" required
-                   value="<?php echo $valMensagem; ?>">
+                   value="">
 
             <label style="font-weight: bold;">Tipo</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="<text>"
                    name="tipo" placeholder="Insira o tipo de notificação:" required
-                   value="<?php echo $valTipo; ?>">
+                   value="">
 
             <button class="w3-button w3-block w3-section w3-padding w3-round-xxlarge" type="submit"
                     style="background: transparent; color: #e67b39; border: 2px solid #e67b39;">
@@ -92,8 +92,14 @@ if (isset($_GET["erro"])) {
         <a href="../../admin/dashboard.php" style="color: #e67b39; font-weight: bold;">Voltar ao Início</a>
     </div>
     <br>
-</div>
-</body>
-</html>
 
-<?php include("../../includes/rodape.php"); ?>
+</div>
+
+</body>
+
+
+
+<footer>
+    <?php include("../../includes/rodape.php"); ?>
+</footer>
+</html>

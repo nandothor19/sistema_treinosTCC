@@ -21,13 +21,23 @@ if (isset($_SESSION["cadastro_email"])) {
 
 <?php include("../includes/menu.php"); ?>     
 
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Informações do usuário</title>
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    </head>
+
+    <body>
+
 <div class="w3-container w3-round-xxlarge w3-card-4"
          style="margin: 70px auto 0 auto; padding: 12px 24px 24px 24px; max-width: 500px; display: block;">
-    
-    <div class="w3-center">
-        <br>
-        <h2 style="color: #e67b39;"><b>Informações do usuário</b></h2>
-    </div>
 
     <form class="w3-container" action="#" method="post">
 
@@ -137,4 +147,9 @@ document.getElementById('data_inicio').addEventListener('change', function() {
 });
 </script>
 
-<?php include("../includes/rodape.php"); ?>    
+    </body>
+    
+    <footer>
+        <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
+    </footer>
+</html>

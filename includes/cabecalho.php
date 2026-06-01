@@ -28,6 +28,7 @@
             text-align: center;
         }
         body {
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             background-color:rgb(255, 244, 207);
@@ -45,6 +46,9 @@
             color: white;
             margin: 0;
             font-size: 26px;
+        }
+        footer {
+            margin-top: auto;
         }
 </style>
         

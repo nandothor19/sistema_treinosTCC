@@ -61,8 +61,7 @@ include("../../includes/menu_admin2.php");
 <html>
 <head>
     <title>Editar Exercício</title>
-    <link rel="stylesheet"
-    href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body class="w3-light-grey">
 <div class="w3-container w3-round-xxlarge w3-card-4"
@@ -77,28 +76,28 @@ include("../../includes/menu_admin2.php");
         <div class="w3-section">
             <label style="font-weight: bold;"> Nome </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
-            name="nome" placeholder="Digite o nome do Exerício:" required
-            value="<?php if($_POST){echo $user['nome'];} ?>">
+            name="nome" placeholder="Digite o nome do Exercício:" required
+            value="<?php echo $user['nome']; ?>">
 
             <label style="font-weight: bold;"> Grupo Muscular </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="grupoMuscular" placeholder="Digite o nome do Grupo Muscular ao qual o exercício faz parte:" required
-            value="<?php if($_POST){echo $user['grupoMuscular'];} ?>">
+            value="<?php echo $user['grupoMuscular']; ?>">
 
             <label style="font-weight: bold;"> Séries </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="series" placeholder="Digite a quantidade de séries recomendadas para o exercício:" required
-            value="<?php if($_POST){echo $user['series'];} ?>">
+            value="<?php echo $user['series']; ?>">
 
             <label style="font-weight: bold;"> Repetições </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="repeticoes" placeholder="Digite a quantidade de repetições recomendadas para o exercício:" required
-            value="<?php if($_POST){echo $user['repeticoes'];} ?>">
+            value="<?php echo $user['repeticoes']; ?>">
 
             <label style="font-weight: bold;"> Descrição </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="<textarea>"
             name="descricao" placeholder="Digite a descrição do exercício:" required
-            value="<?php if($_POST){echo $user['descricao'];} ?>">
+            value="<?php echo $user['descricao']; ?>">
 
 
             <button class="w3-button w3-block w3-section w3-padding w3-round-xxlarge" type="submit" 
@@ -111,4 +110,8 @@ include("../../includes/menu_admin2.php");
 
 </div>
 </body>
+
+<footer>
+    <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
+</footer>
 </html>

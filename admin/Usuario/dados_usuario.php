@@ -35,7 +35,7 @@
         $idade = $_POST['idade'];
         $nivelExperiencia = $_POST['nivelExperiencia'];
         $objetivo = $_POST['objetivo'];
-        $dataRegistro = $_POST['data_inicio'];
+        $created_at = $_POST['data_inicio'];
         $peso = $_POST['peso'];
         $altura = $_POST['altura'];
         $cintura = $_POST['cintura'];
@@ -52,7 +52,12 @@
             sexo = ?,
             altura = ?,
             nivelExperiencia = ?,
-            objetivo = ?
+            objetivo = ?,
+            created_at = ?,
+            cintura = ?,
+            peito = ?,
+            braco = ?,
+            perna = ?
             WHERE idUsuario = ?
         ");
 
@@ -65,30 +70,13 @@
             $altura,
             $nivelExperiencia,
             $objetivo,
-            $id
-        ]);
-
-        $update2 = $conn->prepare("
-            UPDATE medidas_corporais
-            SET 
-                dataRegistro = ?,
-                peso = ?,
-                cintura = ?,
-                peito = ?,
-                braco = ?,
-                perna = ?
-            WHERE idMedida = ?
-        ");
-
-        $update2->execute([
-            $dataRegistro,
-            $peso,
+            $created_at,
             $cintura,
             $peito,
             $braco,
-            $perna,
+            $perna,           
             $id
-        ]);    
+        ]);  
 
         header("Location: ../usuarios.php");
         exit();
@@ -201,27 +189,27 @@
 
                 <label style="font-weight: bold;">Altura (cm)</label>
                 <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                    type="number" step="0.1" name="altura" placeholder="Ex: 175.00"
+                    type="number" step="1" name="altura" placeholder="Ex: 175"
                     value="<?php echo $user['altura']; ?>">
 
                 <label style="font-weight: bold;">Cintura (cm)</label>
                 <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                    type="number" step="0.1" name="cintura" placeholder="Ex: 82.00"
+                    type="number" step="1" name="cintura" placeholder="Ex: 82"
                     value="<?php echo $user['cintura']; ?>">
 
                 <label style="font-weight: bold;">Peito (cm)</label>
                 <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                    type="number" step="0.1" name="peito" placeholder="Ex: 95.00"
+                    type="number" step="1" name="peito" placeholder="Ex: 95"
                     value="<?php echo $user['peito']; ?>">
 
                 <label style="font-weight: bold;">Braço (cm)</label>
                 <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                    type="number" step="0.1" name="braco" placeholder="Ex: 32.00"
+                    type="number" step="1" name="braco" placeholder="Ex: 32"
                     value="<?php echo $user['braco']; ?>">
 
                 <label style="font-weight: bold;">Perna (cm)</label>
                 <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                    type="number" step="0.1" name="perna" placeholder="Ex: 52.00"
+                    type="number" step="1" name="perna" placeholder="Ex: 52"
                     value="<?php echo $user['perna']; ?>">
 
                 <button class="w3-button w3-block w3-section w3-padding w3-round-xxlarge" type="submit" 
@@ -262,4 +250,7 @@
     <?php endif; ?>
 
     </body>
+    <footer>
+        <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
+    </footer>
 </html>

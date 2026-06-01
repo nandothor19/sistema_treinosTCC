@@ -86,10 +86,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px; margin-bottom: 20px;">
                 <h3 style="color: #e67b39;"><b>Notificações</b></h3>
                 <p>✅ Seu treino de hoje está disponível.</p>
-                <p>📌 Atualize suas medidas esta semana.</p>
                 <a href="notificacoes.php" class="w3-button w3-round-xxlarge"
                    style="background: transparent; color: #e67b39; border: 2px solid #e67b39;">
-                    Ver Todas
+                    Ver Notificações
                 </a>
             </div>
         </div>

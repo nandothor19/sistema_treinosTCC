@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 $nome = $_SESSION['admin_nome'];
 
-include("../includes/conexao.php");
+include("../../includes/conexao.php");
 
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -29,10 +29,10 @@ if($_POST){
     $tipo = $_POST['tipo'];
 
     $update = $conn->prepare("
-        UPDATE notificacao
+        UPDATE notificacoes
         SET titulo = ?,
         mensagem = ?,
-        tipo = ?,
+        tipo = ?
         WHERE idNotificacao = ?
     ");
 
@@ -43,16 +43,24 @@ if($_POST){
         $id
     ]);
 
-    header("Location: ../notificacao.php");
+    header("Location: ../notificacoes.php");
     exit();
 }
 
 include("../../includes/cabecalho.php");
 
-include("../includes/menu_admin.php");
+include("../../includes/menu_admin2.php");
 
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Exercício</title>
+    <link rel="stylesheet"
+    href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="body">
 <div class="w3-container w3-round-xxlarge w3-card-4"
      style="margin: 70px auto 0 auto; padding: 12px 24px 24px 24px; max-width: 500px; display: block;">
     <div class="w3-center">
@@ -87,3 +95,9 @@ include("../includes/menu_admin.php");
     </form>
 
 </div>
+</body>
+    
+<footer>
+    <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
+</footer>
+</html>
