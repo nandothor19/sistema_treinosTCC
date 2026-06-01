@@ -118,7 +118,7 @@ $result = $conn->query($sql);
                         Visualizar Dados Complementares
                     </a>
 
-                    <a href="Usuario/info_usuario.php?id=<?php echo $user['idUsuario']; ?>"
+                    <a href="Usuario/dados_usuario.php?id=<?php echo $user['idUsuario']; ?>"
                     class="w3-button w3-blue"
                     style="border-radius: 12px;">
                         Editar

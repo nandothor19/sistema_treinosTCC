@@ -5,108 +5,342 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
-
 $usuario_id = $_SESSION['usuario_id'];
 $nome = $_SESSION['usuario_nome'] ?? 'Usuário';
 
 include("includes/conexao.php");
 
-// Buscar plano de treino do usuário (futuro: você pode expandir esta parte)
-$stmt = $conn->prepare("
-    SELECT u.nome, u.objetivo, u.nivelExperiencia, 
-           p.dataInicio, p.dataFim
-    FROM usuarios u
-    LEFT JOIN plano_treino p ON u.idUsuario = p.idUsuario
-    WHERE u.idUsuario = ?
-");
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE idUsuario = ?");
 $stmt->execute([$usuario_id]);
-$plano = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$sexo = $usuario["sexo"];
+$objetivo = $usuario["objetivo"];
+$nivel = $usuario["nivelExperiencia"];
+
+include("includes/cabecalho.php");
+include("includes/menu.php");
+
+class GeradorTreino {
+
+    public function gerarPlano($sexo, $objetivo) {
+
+        $divisao = $this->definirDivisao($sexo);
+        $plano = [];
+
+        foreach ($divisao as $dia => $grupo) {
+            $plano[$dia] = $this->montarTreino($grupo, $objetivo, $sexo, $dia);
+        }
+
+        return $plano;
+    }
+
+    private function definirDivisao($sexo) {
+
+        if ($sexo == "feminino") {
+
+            return [
+                "segunda" => "pernas",
+                "terca" => "costas",
+                "quarta" => "gluteo",
+                "quinta" => "bracos",
+                "sexta" => "gluteo"
+            ];
+        }
+
+        return [
+            "segunda" => "peito",
+            "terca" => "costas",
+            "quarta" => "pernas",
+            "quinta" => "ombro",
+            "sexta" => "pernas"
+        ];
+    }
+
+    private function montarTreino($grupo, $objetivo, $sexo, $dia) {
+
+        $treinosFemininos = [
+
+            "segunda" => [
+                ["nome"=>"Agachamento na barra guiada","series"=>"4","reps"=>"10"],
+                ["nome"=>"Afundo","series"=>"4","reps"=>"10"],
+                ["nome"=>"Mesa flexora","series"=>"3","reps"=>"10"],
+                ["nome"=>"Leg 45°","series"=>"4","reps"=>"10"],
+                ["nome"=>"Cadeira extensora","series"=>"4","reps"=>"10"],
+                ["nome"=>"Cadeira adutora","series"=>"4","reps"=>"10"]
+            ],
+
+            "terca" => [
+                ["nome"=>"Pull down","series"=>"4","reps"=>"10"],
+                ["nome"=>"Remada baixa com triângulo","series"=>"4","reps"=>"10"],
+                ["nome"=>"Puxada alta com triângulo","series"=>"4","reps"=>"10"],
+                ["nome"=>"Crucifixo inverso","series"=>"4","reps"=>"10"],
+                ["nome"=>"Elevação lateral","series"=>"3","reps"=>"10"],
+                ["nome"=>"Desenvolvimento","series"=>"3","reps"=>"10"]
+            ],
+
+            "quarta" => [
+                ["nome"=>"Stiff","series"=>"4","reps"=>"10"],
+                ["nome"=>"Búlgaro","series"=>"4","reps"=>"10"],
+                ["nome"=>"Agachamento sumô","series"=>"3","reps"=>"12"],
+                ["nome"=>"Cadeira flexora","series"=>"4","reps"=>"10"],
+                ["nome"=>"Extensão de quadril na polia","series"=>"4","reps"=>"10"]
+            ],
+
+            "quinta" => [
+                ["nome"=>"Tríceps francês","series"=>"4","reps"=>"10"],
+                ["nome"=>"Rosca Scott","series"=>"4","reps"=>"10"],
+                ["nome"=>"Tríceps na polia","series"=>"4","reps"=>"12"],
+                ["nome"=>"Rosca martelo","series"=>"3","reps"=>"10"]
+            ],
+
+            "sexta" => [
+                ["nome"=>"Cadeira abdutora","series"=>"4","reps"=>"10"],
+                ["nome"=>"Búlgaro","series"=>"4","reps"=>"8"],
+                ["nome"=>"Elevação Pélvica","series"=>"4","reps"=>"10"],
+                ["nome"=>"Abdução de quadril na polia","series"=>"4","reps"=>"10"],
+                ["nome"=>"Levantamento terra sumô","series"=>"4","reps"=>"10"]
+            ]
+        ];
+
+        $treinosMasculinos = [
+
+            "segunda" => [
+                ["nome"=>"Supino reto","series"=>"3","reps"=>"10"],
+                ["nome"=>"Supino inclinado","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Crucifixo Máquina","series"=>"2","reps"=>"Falha"],
+                ["nome"=>"Tríceps corda","series"=>"3","reps"=>"10-12"],
+                ["nome"=>"Tríceps testa","series"=>"3","reps"=>"10-12"]
+            ],
+
+            "terca" => [
+                ["nome"=>"Puxada alta aberta","series"=>"3","reps"=>"10"],
+                ["nome"=>"Remada baixa (triângulo)","series"=>"3","reps"=>"8-12"],
+                ["nome"=>"Pull down","series"=>"3","reps"=>"10-12"],
+                ["nome"=>"Rosca direta 45º","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Rosca Scott","series"=>"4","reps"=>"10"]
+            ],
+
+            "quarta" => [
+                ["nome"=>"Agachamento Hack","series"=>"4","reps"=>"10"],
+                ["nome"=>"Cadeira extensora","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Mesa flexora","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Leg 45º","series"=>"4","reps"=>"8"],
+                ["nome"=>"Panturrilha","series"=>"3","reps"=>"12"]
+            ],
+
+            "quinta" => [
+                ["nome"=>"Desenvolvimento (halter)","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Elevação lateral","series"=>"4","reps"=>"10"],
+                ["nome"=>"Crucifixo inverso","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Rosca martelo","series"=>"3","reps"=>"12"],
+                ["nome"=>"Rosca Scott + tríceps corda","series"=>"4","reps"=>"10"],
+                ["nome"=>"Tríceps francês","series"=>"3","reps"=>"8"]
+            ],
+
+            "sexta" => [
+                ["nome"=>"Agachamento barra guiada","series"=>"3","reps"=>"10"],
+                ["nome"=>"Cadeira adutora","series"=>"3","reps"=>"8"],
+                ["nome"=>"Cadeira flexora","series"=>"3","reps"=>"8-10"],
+                ["nome"=>"Cadeira extensora","series"=>"3","reps"=>"12"],
+                ["nome"=>"Panturrilha","series"=>"3","reps"=>"10-12"]
+            ]
+        ];
+
+        $treino = ($sexo == "feminino")
+            ? $treinosFemininos[$dia]
+            : $treinosMasculinos[$dia];
+
+        foreach ($treino as &$exercicio) {
+            $exercicio["descanso"] = "2 min";
+        }
+
+        if ($objetivo == "hipertrofia") {
+
+            $treino[] = [
+                "nome" => "Cardio",
+                "series" => "-",
+                "reps" => "24 min",
+                "descanso" => "-"
+            ];
+        }
+
+        if ($objetivo == "emagrecimento") {
+
+            $treino[] = [
+                "nome" => "Cardio",
+                "series" => "-",
+                "reps" => "35 min",
+                "descanso" => "-"
+            ];
+        }
+
+        return $treino;
+    }
+}
+
+$gerador = new GeradorTreino();
+$plano = $gerador->gerarPlano($sexo, $objetivo);
 ?>
 
-<?php include("includes/cabecalho.php"); ?>
-<?php include("includes/menu.php"); ?>
-
 <section class="w3-container" style="margin-top: 30px;">
+
     <div class="w3-center">
-        <h2 style="color: #e67b39;"><b>Plano de Treino Semanal</b></h2>
-        <p>Gerencie seu plano de treino personalizado.</p>
+        <h2 style="color: #e67b39;">
+            <b>Plano de Treino Semanal</b>
+        </h2>
+
+        <p>
+            Gerencie os exercícios do seu plano semanal.
+        </p>
     </div>
 
     <hr>
 
-    <div class="w3-row-padding" style="margin-top: 30px;">
+    <div class="w3-row-padding" style="margin-top:30px;">
 
-        <!-- Informações Gerais -->
+        <!-- Informações -->
         <div class="w3-col l6 m12 s12">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px; margin-bottom: 20px;">
-                <h3 style="color: #e67b39;"><b>Informações Gerais</b></h3>
-                <p><b>Objetivo:</b> <?php echo htmlspecialchars($plano['objetivo'] ?? 'Não definido'); ?></p>
-                <p><b>Nível:</b> <?php echo htmlspecialchars($plano['nivelExperiencia'] ?? 'Não informado'); ?></p>
-                <p><b>Data de Início:</b> <?php echo $plano['dataInicio'] ?? '—'; ?></p>
-                <p><b>Data de Fim:</b> <?php echo $plano['dataFim'] ?? '—'; ?></p>
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px; margin-bottom:20px;">
+
+                <h3 style="color:#e67b39;">
+                    <b>Informações Gerais</b>
+                </h3>
+
+                <p>
+                    <b>Objetivo:</b>
+                    <?= ucfirst($objetivo) ?>
+                </p>
+
+                <p>
+                    <b>Nível:</b>
+                    <?= ucfirst($nivel) ?>
+                </p>
+
+                <p>
+                    <b>Sexo:</b>
+                    <?= ucfirst($sexo) ?>
+                </p>
+
             </div>
         </div>
 
-        <!-- Seleção do Dia -->
+        <!-- Seleção -->
         <div class="w3-col l6 m12 s12">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px; margin-bottom: 20px;">
-                <h3 style="color: #e67b39;"><b>Selecionar Dia</b></h3>
-                <label for="diaSemana"><b>Dia da semana</b></label>
-                <select id="diaSemana" class="w3-select w3-border w3-round-xxlarge w3-margin-top" onchange="mostrarTreino()">
-                    <option value="">-- Escolha um dia --</option>
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px; margin-bottom:20px;">
+
+                <h3 style="color:#e67b39;">
+                    <b>Selecionar Dia</b>
+                </h3>
+
+                <label for="diaSemana">
+                    <b>Dia da semana</b>
+                </label>
+
+                <select id="diaSemana"
+                        class="w3-select w3-border w3-round-xxlarge w3-margin-top"
+                        onchange="mostrarTreino()">
+
+                    <option value="">
+                        -- Escolha um dia --
+                    </option>
+
                     <option value="segunda">Segunda-feira</option>
                     <option value="terca">Terça-feira</option>
                     <option value="quarta">Quarta-feira</option>
                     <option value="quinta">Quinta-feira</option>
                     <option value="sexta">Sexta-feira</option>
-                    <option value="sabado">Sábado</option>
-                    <option value="domingo">Domingo</option>
+
                 </select>
-            </div>
-        </div>
-
-        <!-- Área dos Treinos (ainda estática por enquanto - podemos melhorar depois) -->
-        <div class="w3-col l12 m12 s12">
-            <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 20px; margin-bottom: 20px;">
-
-                <div id="segunda" class="treino-dia" style="display: none;">
-                    <h3 style="color: #e67b39;"><b>Segunda-feira - Peito / Tríceps</b></h3>
-                    <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 16px; margin-top: 16px;">
-                        <strong>Supino Reto</strong><br>
-                        <p>4 séries × 12 repetições</p>
-                    </div>
-                </div>
-
-                <div id="terca" class="treino-dia" style="display: none;">
-                    <h3 style="color: #e67b39;"><b>Terça-feira - Costas / Bíceps</b></h3>
-                    <div class="w3-container w3-round-xxlarge w3-card-4" style="padding: 16px; margin-top: 16px;">
-                        <strong>Puxada Frontal</strong><br>
-                        <p>4 séries × 10 repetições</p>
-                    </div>
-                </div>
-
-                <!-- Adicione os outros dias conforme necessário -->
 
             </div>
         </div>
     </div>
+
+    <!-- Treinos -->
+    <?php foreach($plano as $dia => $exercicios): ?>
+
+        <div id="<?= $dia ?>"
+             class="treino-dia"
+             style="display:none; margin-top:20px;">
+
+            <div class="w3-container w3-card-4 w3-round-xxlarge"
+                 style="padding:20px;">
+
+                <h3 style="color:#e67b39; text-transform:capitalize;">
+                    <?= $dia ?>
+                </h3>
+
+                <?php foreach($exercicios as $ex): ?>
+
+                    <div class="w3-container w3-round-xxlarge"
+                         style="
+                            background:#fff5d6;
+                            padding:15px;
+                            margin-top:15px;
+                            border-left:5px solid #e67b39;
+                         ">
+
+                        <strong>
+                            <?= $ex['nome'] ?>
+                        </strong>
+
+                        <br>
+
+                        Séries:
+                        <?= $ex['series'] ?>
+
+                        |
+
+                        Repetições:
+                        <?= $ex['reps'] ?>
+
+                        |
+
+                        Descanso:
+                        <?= $ex['descanso'] ?>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    <?php endforeach; ?>
+
 </section>
 
 <script>
+
 function mostrarTreino() {
+
     const dias = document.querySelectorAll('.treino-dia');
-    const diaSelecionado = document.getElementById('diaSemana').value;
+
+    const diaSelecionado =
+        document.getElementById('diaSemana').value;
 
     dias.forEach(function(dia) {
+
         dia.style.display = 'none';
+
     });
 
     if (diaSelecionado !== '') {
-        const elemento = document.getElementById(diaSelecionado);
-        if (elemento) elemento.style.display = 'block';
+
+        document.getElementById(diaSelecionado)
+            .style.display = 'block';
     }
 }
+
 </script>
 
 <hr>
+
 <?php include("includes/rodape.php"); ?>
