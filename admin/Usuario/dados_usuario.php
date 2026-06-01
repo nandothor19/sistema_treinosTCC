@@ -96,7 +96,7 @@
 
     include("../../includes/cabecalho.php");
 
-    include("../../includes/menu_admin.php");
+    include("../../includes/menu_admin2.php");
 ?>
 
 <!DOCTYPE html>
