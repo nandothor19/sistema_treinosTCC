@@ -11,7 +11,7 @@
 
     $readonly = isset($_GET['readonly']);
 
-    include("../includes/conexao.php");
+    include("../../includes/conexao.php");
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -19,10 +19,8 @@
 
     $stmt = $conn->prepare("
         SELECT *
-        FROM usuarios u
-        LEFT JOIN medidas_corporais m
-            ON u.idUsuario = m.idMedida
-        WHERE u.idUsuario = ?
+        FROM usuarios
+        WHERE idUsuario = ?
     ");
 
     $stmt->execute([$id]);
