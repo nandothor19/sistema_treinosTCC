@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("
             UPDATE usuarios 
             SET nome = ?, email = ?, idade = ?, sexo = ?, 
-            nivelExperiencia = ?, objetivo = ?, peso ?, altura = ?, cintura = ?,
+            nivelExperiencia = ?, objetivo = ?, peso = ?, altura = ?, cintura = ?,
              peito = ?, braco = ?, perna = ?
              WHERE idUsuario = ?
         ");
