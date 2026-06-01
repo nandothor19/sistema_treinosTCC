@@ -262,6 +262,14 @@ $plano = $gerador->gerarPlano($sexo, $objetivo);
         </div>
     </div>
 
+    <div class="w3-center" style="margin-top:20px;">
+    <button onclick="mostrarTodos()"
+            class="w3-button w3-green w3-round-xxlarge">
+        Restaurar Exercícios
+    </button>
+</div>
+
+
     <!-- Treinos -->
     <?php foreach($plano as $dia => $exercicios): ?>
 
@@ -276,38 +284,55 @@ $plano = $gerador->gerarPlano($sexo, $objetivo);
                     <?= $dia ?>
                 </h3>
 
-                <?php foreach($exercicios as $ex): ?>
+               <?php foreach($exercicios as $ex): ?>
 
-                    <div class="w3-container w3-round-xxlarge"
-                         style="
-                            background:#fff5d6;
-                            padding:15px;
-                            margin-top:15px;
-                            border-left:5px solid #e67b39;
-                         ">
+    <div class="w3-container w3-round-xxlarge exercicio"
+         style="
+            background:#fff5d6;
+            padding:15px;
+            margin-top:15px;
+            border-left:5px solid #e67b39;
+         ">
 
-                        <strong>
-                            <?= $ex['nome'] ?>
-                        </strong>
+        <label>
+            <input type="checkbox"
+                   onchange="marcarFeito(this)">
+            <strong>
+                <?= $ex['nome'] ?>
+            </strong>
+        </label>
 
-                        <br>
+        <br><br>
 
-                        Séries:
-                        <?= $ex['series'] ?>
+        Séries:
+        <?= $ex['series'] ?>
 
-                        |
+        |
 
-                        Repetições:
-                        <?= $ex['reps'] ?>
+        Repetições:
+        <?= $ex['reps'] ?>
 
-                        |
+        |
 
-                        Descanso:
-                        <?= $ex['descanso'] ?>
+        Descanso:
+        <?= $ex['descanso'] ?>
 
-                    </div>
+        <br><br>
 
-                <?php endforeach; ?>
+        <button
+            class="w3-button w3-round-xxlarge"
+            onclick="removerExercicio(this)"
+            style="
+                background:transparent;
+                color:#c00000;
+                border:2px solid #c00000;
+            ">
+            🗑️ Remover
+        </button>
+
+    </div>
+
+<?php endforeach; ?>
 
             </div>
 
@@ -338,8 +363,44 @@ function mostrarTreino() {
             .style.display = 'block';
     }
 }
+function marcarFeito(checkbox) {
 
+    const card = checkbox.closest('.exercicio');
+
+    if (checkbox.checked) {
+
+        card.style.backgroundColor = '#d4edda';
+        card.style.borderLeft = '5px solid green';
+        card.style.opacity = '0.9';
+
+    } else {
+
+        card.style.backgroundColor = '#fff5d6';
+        card.style.borderLeft = '5px solid #e67b39';
+        card.style.opacity = '1';
+    }
+}
+
+function removerExercicio(botao) {
+
+    const card = botao.closest('.exercicio');
+
+    card.style.display = 'none';
+}
+
+function mostrarTodos() {
+
+    const exercicios =
+        document.querySelectorAll('.exercicio');
+
+    exercicios.forEach(function(exercicio) {
+
+        exercicio.style.display = 'block';
+
+    });
+}
 </script>
+
 
 <hr>
 
