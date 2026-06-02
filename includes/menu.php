@@ -95,9 +95,6 @@
                     <a href="plano_treino.php">🗓 Plano de Treino</a>
                 </li>
                 <li class="drop-down__item">
-                    <a href="exercicios.php">💪 Exercícios</a>
-                </li>
-                <li class="drop-down__item">
                     <a href="notificacoes.php">🔔 Notificações</a>
                 </li>
                 <li class="drop-down__item">
