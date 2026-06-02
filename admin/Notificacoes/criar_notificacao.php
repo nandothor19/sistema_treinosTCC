@@ -96,10 +96,5 @@ if (isset($_GET["erro"])) {
 </div>
 
 </body>
-
-
-
-<footer>
-    <?php include("../../includes/rodape.php"); ?>
-</footer>
 </html>
+<?php include("../../includes/rodape.php"); ?>

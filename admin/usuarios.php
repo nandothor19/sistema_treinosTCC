@@ -176,7 +176,6 @@ $result = $conn->query($sql);
     </div>
 
     </body>
-    <footer>
-        <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
-    </footer>
 </html>
+
+<?php include("../includes/rodape.php"); ?>

@@ -77,13 +77,7 @@ include("../includes/conexao.php");
         class="w3-bar-item w3-button"
         style="flex:1; text-align:center;">
             Exercícios
-        </a>
-
-        <a href="treinos.php"
-        class="w3-bar-item w3-button"
-        style="flex:1; text-align:center;">
-            Planos de Treino
-        </a>        
+        </a>       
 
         <a href="notificacoes.php"
         class="w3-bar-item w3-button"
@@ -409,7 +403,6 @@ new Chart(ctx2, {
 </script>
 
 </body>
-<footer>
-    <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
-</footer>
 </html>
+
+<?php include("../includes/rodape.php"); ?>

@@ -243,7 +243,7 @@ include("../../includes/menu_admin2.php");
 
 </body>
     
-<footer>
-    <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
-</footer>
+
 </html>
+
+<?php include("../../includes/rodape.php"); ?>
