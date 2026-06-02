@@ -183,7 +183,6 @@ CREATE TABLE IF NOT EXISTS `notificacoes` (
   `idUsuario` INT NOT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `mensagem` VARCHAR(255) NOT NULL,
-  `dataEnvio` DATETIME NOT NULL,
   `tipo` VARCHAR(50) NOT NULL,
 
   PRIMARY KEY (`idNotificacao`),
