@@ -112,6 +112,11 @@ if (isset($_GET["erro"])) {
 </div>
 
 </body>
+<<<<<<< HEAD
 
 <?php include("../../includes/rodape.php"); ?>
 </html>
+=======
+</html>
+<?php include("../../includes/rodape.php"); ?>
+>>>>>>> 66d648d6527876f8c3bada54eb46573f49d32189

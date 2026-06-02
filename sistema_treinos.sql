@@ -220,6 +220,18 @@ VALUES
 ),
 
 (
+'Usuario',
+'usuario@gmail.com',
+'$2y$10$j2G/kg2S1tIzytaCGw8mAOJfojPzqBjopR4dZ5a/tFkg9zk0pwZiy',
+18,
+'Masculino',
+75.00,
+1.78,
+'Intermediário',
+'Hipertrofia'
+),
+
+(
 'Miguel 2',
 'miguel2@gmail.com',
 '$2y$10$Mqg0fLqlYUPUUdomeIbR/.NKi1ewa0eh03xS1tQKkhN/8SS/mva6.',
