@@ -91,23 +91,23 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <label>Altura (cm)</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                   type="number" step="0.1" name="altura" value="<?php echo $user['altura'] ?? ''; ?>" required>
+                   type="number" step="1" name="altura" value="<?php echo $user['altura'] ?? ''; ?>" required>
 
             <label>Cintura (cm)</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                   type="number" step="0.1" name="cintura" value="<?php echo $user['cintura'] ?? ''; ?>" required>
+                   type="number" step="1" name="cintura" value="<?php echo $user['cintura'] ?? ''; ?>" required>
 
             <label>Peito (cm)</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                   type="number" step="0.1" name="peito" value="<?php echo $user['peito'] ?? ''; ?>" required>
+                   type="number" step="1" name="peito" value="<?php echo $user['peito'] ?? ''; ?>" required>
 
             <label>Braço (cm)</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                   type="number" step="0.1" name="braco" value="<?php echo $user['braco'] ?? ''; ?>" required>
+                   type="number" step="1" name="braco" value="<?php echo $user['braco'] ?? ''; ?>" required>
 
             <label>Perna (cm)</label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" 
-                   type="number" step="0.1" name="perna" value="<?php echo $user['perna'] ?? ''; ?>" required>
+                   type="number" step="1" name="perna" value="<?php echo $user['perna'] ?? ''; ?>" required>
 
             <button class="w3-button w3-block w3-section w3-padding w3-round-xxlarge" 
                     style="background: transparent; color: #e67b39; border: 3px solid #e67b39;">

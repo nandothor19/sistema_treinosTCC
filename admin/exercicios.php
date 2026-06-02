@@ -59,7 +59,7 @@ $result = $conn->query($sql);
 
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h2>Gerenciar Exercícios</h2>
-        <a href="Exercicios/criar_exercicio.php"
+        <a href="Exercicios/editar_exercicio.php"
         class="w3-button w3-green"
         style="border-radius: 12px;">
             Novo Exercício
@@ -162,11 +162,5 @@ $result = $conn->query($sql);
     </table>
 </div>
 </body>
-<<<<<<< HEAD
-<?php include("../includes/rodape.php"); ?>
+    <?php include("../includes/rodape.php"); ?>
 </html>
-=======
-</html>
-
-<?php include("../includes/rodape.php"); ?>
->>>>>>> 66d648d6527876f8c3bada54eb46573f49d32189

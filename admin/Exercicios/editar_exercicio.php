@@ -80,7 +80,7 @@ include("../../includes/menu_admin2.php");
         }
     </style>
 </head>
-<body class="w3-light-grey">
+<body class="w3-container">
 <div class="w3-container w3-round-xxlarge w3-card-4"
      style="margin: 70px auto 0 auto; padding: 12px 24px 24px 24px; max-width: 500px; display: block;">
     <div class="w3-center">
@@ -93,28 +93,28 @@ include("../../includes/menu_admin2.php");
         <div class="w3-section">
             <label style="font-weight: bold;"> Nome </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
-            name="nome" placeholder="Digite o nome do Exercício:" required
-            value="<?php echo $user['nome']; ?>">
+            name="nome" placeholder="Digite o nome do Exerício:" required
+            value="<?php if($_POST){echo $user['nome'];} ?>">
 
             <label style="font-weight: bold;"> Grupo Muscular </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="grupoMuscular" placeholder="Digite o nome do Grupo Muscular ao qual o exercício faz parte:" required
-            value="<?php echo $user['grupoMuscular']; ?>">
+            value="<?php if($_POST){echo $user['grupoMuscular'];} ?>">
 
             <label style="font-weight: bold;"> Séries </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="series" placeholder="Digite a quantidade de séries recomendadas para o exercício:" required
-            value="<?php echo $user['series']; ?>">
+            value="<?php if($_POST){echo $user['series'];} ?>">
 
             <label style="font-weight: bold;"> Repetições </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="text"
             name="repeticoes" placeholder="Digite a quantidade de repetições recomendadas para o exercício:" required
-            value="<?php echo $user['repeticoes']; ?>">
+            value="<?php if($_POST){echo $user['repeticoes'];} ?>">
 
             <label style="font-weight: bold;"> Descrição </label>
             <input class="w3-input w3-border w3-margin-bottom w3-round-xxlarge" type="<textarea>"
             name="descricao" placeholder="Digite a descrição do exercício:" required
-            value="<?php echo $user['descricao']; ?>">
+            value="<?php if($_POST){echo $user['descricao'];} ?>">
 
 
             <button class="w3-button w3-block w3-section w3-padding w3-round-xxlarge" type="submit" 
@@ -129,9 +129,5 @@ include("../../includes/menu_admin2.php");
 </body>
 </html>
 
-<<<<<<< HEAD
-<?php include("../../includes/rodape.php"); ?>
+    <?php include("../../includes/rodape.php"); ?>
 </html>
-=======
-<?php include("../../includes/rodape.php"); ?>
->>>>>>> 66d648d6527876f8c3bada54eb46573f49d32189

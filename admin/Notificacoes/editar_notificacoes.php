@@ -113,12 +113,6 @@ include("../../includes/menu_admin2.php");
 </div>
 </body>
     
-<<<<<<< HEAD
-<?php include("../../includes/rodape.php"); ?>
+    <?php include("../../includes/rodape.php"); ?>
 
 </html>
-=======
-
-</html>
-<?php include("../../includes/rodape.php"); ?>
->>>>>>> 66d648d6527876f8c3bada54eb46573f49d32189
