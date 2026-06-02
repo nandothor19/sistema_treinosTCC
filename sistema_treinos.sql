@@ -180,21 +180,12 @@ COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `notificacoes` (
   `idNotificacao` INT NOT NULL AUTO_INCREMENT,
-  `idUsuario` INT NOT NULL,
   `titulo` VARCHAR(100) NOT NULL,
   `mensagem` VARCHAR(255) NOT NULL,
+  `dataEnvio` DATETIME NOT NULL,
   `tipo` VARCHAR(50) NOT NULL,
 
-  PRIMARY KEY (`idNotificacao`),
-
-  KEY `fk_notificacao_usuario_idx` (`idUsuario`),
-
-  CONSTRAINT `fk_notificacao_usuario`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `usuarios` (`idUsuario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-
+  PRIMARY KEY (`idNotificacao`)
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
@@ -301,6 +292,39 @@ VALUES
 12,
 'Exercício para bícep'
 );
+INSERT INTO Notificacao (titulo, mensagem, dataEnvio, tipo)
+VALUES
+( 'Hora do Treino', 'Seu treino de hoje está esperando por você. Vamos manter a consistência!', NOW(), 'Lembrete'),
+( 'Meta da Semana', 'Você já completou 3 de 5 treinos desta semana. Continue assim!', NOW(), 'Progresso'),
+( 'Novo Treino Disponível', 'Seu treinador atualizou sua ficha. Confira as novidades.', NOW(), 'Atualização'),
+( 'Recorde Pessoal', 'Parabéns! Você atingiu um novo recorde em um exercício.', NOW(), 'Conquista'),
+( 'Não Pare Agora', 'Você está há 2 dias sem registrar treinos. Volte a ativa!', NOW(), 'Reengajamento'),
+( 'Treino Concluído', 'Excelente trabalho! Seu treino foi registrado com sucesso.', NOW(), 'Confirmação'),
+( 'Desafio Semanal', 'Participe do desafio desta semana e acumule pontos extras.', NOW(), 'Campanha'),
+( 'Série de Treinos', 'Você completou 7 dias consecutivos de treino. Continue firme!', NOW(), 'Conquista'),
+( 'Hora de se Hidratar', 'Não esqueça de beber água antes, durante e após o treino.', NOW(), 'Saúde'),
+( 'Avaliação Física', 'Está na hora de atualizar suas medidas e acompanhar sua evolução.', NOW(), 'Lembrete'),
+( 'Treino de Hoje', 'Seu plano para hoje já está disponível. Confira os exercícios.', NOW(), 'Lembrete'),
+( 'Objetivo Próximo', 'Você está a apenas 10% de atingir sua meta mensal.', NOW(), 'Progresso'),
+( 'Evolução Detectada', 'Sua carga média aumentou nas últimas semanas. Parabéns pela evolução!', NOW(), 'Progresso'),
+( 'Descanso Também Conta', 'Hoje é dia de recuperação. Aproveite para descansar e se recuperar.', NOW(), 'Saúde'),
+( 'Treino Perdido', 'Sentimos sua falta ontem. Que tal retomar hoje?', NOW(), 'Reengajamento'),
+( 'Nova Funcionalidade', 'Acabamos de lançar uma novidade para melhorar seus treinos. Confira!', NOW(), 'Sistema'),
+( 'Meta Atingida', 'Você alcançou sua meta de treinos do mês. Parabéns!', NOW(), 'Conquista'),
+( 'Atualize seu Peso', 'Registre seu peso atual para manter seu progresso atualizado.', NOW(), 'Lembrete'),
+( 'Academia Lotada?', 'Treine em horários alternativos para uma melhor experiência.', NOW(), 'Informativo'),
+( 'Treino Rápido Disponível', 'Sem tempo hoje? Experimente nosso treino expresso de 20 minutos.', NOW(), 'Sugestão'),
+( 'Aniversário Fitness', 'Você completou mais um mês de jornada fitness. Parabéns pela dedicação!', NOW(), 'Conquista'),
+( 'Faltam Poucos Exercícios', 'Você está quase terminando o treino de hoje. Continue!', NOW(), 'Motivacional'),
+( 'Sua Frequência Melhorou', 'Sua frequência aumentou em relação ao mês passado. Excelente trabalho!', NOW(), 'Progresso'),
+( 'Convite para Desafio', 'Convide amigos para participar do desafio e ganhem recompensas.', NOW(), 'Social'),
+( 'Hora de Alongar', 'Reserve alguns minutos para alongamento e prevenção de lesões.', NOW(), 'Saúde'),
+( 'Check-in Realizado', 'Seu check-in na academia foi registrado com sucesso.', NOW(), 'Confirmação'),
+( 'Semana Perfeita', 'Você completou todos os treinos planejados para esta semana.', NOW(), 'Conquista'),
+( 'Foco no Objetivo', 'Cada treino te aproxima da sua meta. Continue avançando!', NOW(), 'Motivacional'),
+( 'Feedback do Treino', 'Como foi o treino de hoje? Avalie sua experiência.', NOW(), 'Engajamento'),
+( 'Bem-vindo de Volta', 'Que bom ter você de volta! Vamos continuar sua evolução.', NOW(), 'Reengajamento');
+
 
 COMMIT;
 
