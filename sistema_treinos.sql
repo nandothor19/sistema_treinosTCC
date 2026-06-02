@@ -201,6 +201,30 @@ DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_general_ci;
 
 -- =========================
+-- TABELA NOTIFICAÇÕES Usuários
+-- =========================
+
+CREATE TABLE IF NOT EXISTS `notificacoes_usuarios` (
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `idUsuario` INT NOT NULL,
+   `idNotificacao` INT NOT NULL,
+   `DataEnvio` DATETIME NOT NULL,
+   `lida` BOOLEAN NOT NULL DEFAULT FALSE,
+   
+   PRIMARY KEY (`id`),
+   
+     CONSTRAINT fk_notif_usuario
+         FOREIGN KEY (idUsuario)
+         REFERENCES usuarios(idUsuario),
+ 
+     CONSTRAINT fk_notif_notificacao
+         FOREIGN KEY (idNotificacao)
+         REFERENCES notificacoes(idNotificacao)
+ 
+ )  ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
+-- =========================
 -- DADOS DE TESTE
 -- =========================
 
