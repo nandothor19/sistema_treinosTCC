@@ -38,8 +38,24 @@ if (isset($_GET["erro"])) {
 <html>
     <head>
         <title>Notificação</title>
-        <link rel="stylesheet"
-        href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            .conteudo {
+                flex: 1;
+            }
+        </style>
     </head>
     <body>
 
@@ -97,9 +113,5 @@ if (isset($_GET["erro"])) {
 
 </body>
 
-
-
-<footer>
-    <?php include("../../includes/rodape.php"); ?>
-</footer>
+<?php include("../../includes/rodape.php"); ?>
 </html>

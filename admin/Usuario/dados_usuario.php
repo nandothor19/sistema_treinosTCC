@@ -95,8 +95,24 @@
 
         <title>Usuários</title>
 
-        <link rel="stylesheet"
-        href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            .conteudo {
+                flex: 1;
+            }
+        </style>
 
     </head>
 
@@ -250,7 +266,6 @@
     <?php endif; ?>
 
     </body>
-    <footer>
-        <p>&copy; 2026 - Sistema de Elaboração de Treinos</p>
-    </footer>
+    <?php include("../../includes/rodape.php"); ?>
+
 </html>
