@@ -292,7 +292,7 @@ VALUES
 12,
 'Exercício para bícep'
 );
-INSERT INTO Notificacao (titulo, mensagem, dataEnvio, tipo)
+INSERT INTO notificacoes (titulo, mensagem, dataEnvio, tipo)
 VALUES
 ( 'Hora do Treino', 'Seu treino de hoje está esperando por você. Vamos manter a consistência!', NOW(), 'Lembrete'),
 ( 'Meta da Semana', 'Você já completou 3 de 5 treinos desta semana. Continue assim!', NOW(), 'Progresso'),
